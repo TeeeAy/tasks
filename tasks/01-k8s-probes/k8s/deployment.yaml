@@ -12,12 +12,23 @@ spec:
       labels:
         app: probes-demo
     spec:
+      serviceAccountName: probes-demo-sa
       containers:
         - name: app
-          image: probes-demo:0.1
+          image: probes-demo:2.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: k8s
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          envFrom:
+            - secretRef:
+                name: probes-demo-secret
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
