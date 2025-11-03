@@ -1,0 +1,19 @@
+# config.map.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: probes-demo-kubernetes-k8s
+data:
+  application-k8s.yaml: |-
+    app:
+      message: "Hi hi nice to meet u  -(_)-"
+    spring:
+      datasource:
+        url: ${DB_URL}
+        username: ${DB_USERNAME}
+        password: ${DB_PASSWORD}
+      jpa:
+        hibernate:
+          ddl-auto: update
+        show-sql: true
+     
